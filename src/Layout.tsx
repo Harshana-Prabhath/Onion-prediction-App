@@ -1,17 +1,16 @@
 import React from "react";
 import { Outlet } from "react-router";
+import Header from "./Comonents/Header";
+import Footer from "./Comonents/Footer";
 
-const Layout : React.FC = ()=> {
-    return (
-        <div>
-            <h1>This is the Header</h1>
-            <Outlet/>
-            <h1>This is the Footer</h1>
-        </div>
-
-
-    )
-
-}
+const Layout: React.FC = () => {
+  return (
+    <div>
+      <Header />
+      <Outlet />
+      <Footer />
+    </div>
+  );
+};
 
 export default Layout;
