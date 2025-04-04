@@ -1,53 +1,117 @@
 import React from "react";
-import { useNavigate } from "react-router";
 import Header from "./Header";
 import Footer from "./Footer";
+import PredictionGraph from "./PredictionGraph";
 import BackgroundImage from "../../public/Images/Background.jpg";
 
 const Home: React.FC = () => {
-  let navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate("/prediction-graph");
+  const mainContainerStyle = {
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column" as const,
   };
 
-  return (
-    <div className="min-h-screen flex flex-col ">
-      <main className="flex-grow flex flex-col">
-        <div
-          className="flex-grow relative text-white p-4 "
-          style={{
-            backgroundImage: `url(${BackgroundImage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-black opacity-40 z-0"></div>
+  const heroSectionStyle = {
+    flexGrow: 1,
+    display: "flex",
+    flexDirection: "column" as const,
+    backgroundImage: `url(${BackgroundImage})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    position: "relative" as const,
+  };
 
-          {/* Content */}
-          <div className="relative z-10 flex flex-col items-center justify-center text-center min-h-screen">
-            <h1 className="text-6xl font-bold mb-4 tracking-wide">
-              BIG ONION YIELD
-            </h1>
-            <h1 className="text-6xl font-bold mb-4 tracking-wide">
-              PREDICTION MODEL
-            </h1>
-            <h2 className="text-3xl font-semibold mb-8">IN SRI LANKA</h2>
-            <p className="text-xl mb-12">
-              A machine learning model for predicting big onion
-              <br />
-              yield based on climate factors.
-            </p>
-            <button
-              style={{ padding: "3px 12px" }}
-              className=" bg-green-700 hover:bg-green-800 text-white font-bold  rounded-md transition duration-300 cursor-pointer"
-            >
-              PREDICT
-            </button>
-          </div>
+  const overlayStyle = {
+    position: "absolute" as const,
+    inset: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+  };
+
+  const contentContainerStyle = {
+    position: "relative" as const,
+    zIndex: 10,
+    maxWidth: "64rem",
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column" as const,
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+    textAlign: "center" as const,
+    color: "white",
+    padding: "1rem",
+  };
+
+  const mainHeadingStyle = {
+    fontSize: "3.75rem",
+    fontWeight: 700,
+    marginBottom: "1rem",
+    letterSpacing: "0.05em",
+  };
+
+  const subHeadingStyle = {
+    fontSize: "2rem",
+    fontWeight: 600,
+    marginBottom: "2rem",
+  };
+
+  const descriptionStyle = {
+    fontSize: "1.25rem",
+    marginBottom: "3rem",
+  };
+
+  const buttonStyle = {
+    backgroundColor: "#15803d",
+    color: "white",
+    fontWeight: 700,
+    padding: "0.75rem 3rem",
+    borderRadius: "0.375rem",
+    border: "none",
+    cursor: "pointer",
+    transition: "background-color 0.3s ease",
+  };
+
+  const predictionSectionStyle = {
+    padding: "2rem",
+    maxWidth: "80rem",
+    margin: "0 auto",
+  };
+
+  const [showPrediction, setShowPrediction] = React.useState(false);
+
+  return (
+    <div style={mainContainerStyle}>
+      <main style={heroSectionStyle}>
+        <div style={overlayStyle}></div>
+        <div style={contentContainerStyle}>
+          <h1 style={mainHeadingStyle}>BIG ONION YIELD</h1>
+          <h1 style={mainHeadingStyle}>PREDICTION MODEL</h1>
+          <h2 style={subHeadingStyle}>IN SRI LANKA</h2>
+          <p style={descriptionStyle}>
+            A machine learning model for predicting big onion
+            <br />
+            yield based on environmental factors.
+          </p>
+          <button
+            style={buttonStyle}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor = "#166534")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor = "#15803d")
+            }
+            onClick={() => setShowPrediction(true)}
+          >
+            PREDICT
+          </button>
         </div>
       </main>
+
+      {showPrediction && (
+        <section style={predictionSectionStyle}>
+          <PredictionGraph />
+        </section>
+      )}
     </div>
   );
 };
