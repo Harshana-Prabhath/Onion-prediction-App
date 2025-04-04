@@ -1,75 +1,81 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
+import styled from "styled-components";
 
+// Styled Components
+const Nav = styled.nav`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
+const NavItems = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+`;
+
+const NavLink = styled.a<{ active: boolean }>`
+  position: relative;
+  padding: 0.25rem 0.5rem;
+  font-weight: 500;
+  color: ${(props) => (props.active ? "#15803d" : "#000000")};
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #15803d;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: ${(props) => (props.active ? "100%" : "0")};
+    height: 2px;
+    background-color: #15803d;
+    transition: width 0.3s ease;
+  }
+`;
+
+// Component
 const Header: React.FC = () => {
+  const navigate = useNavigate();
   const [activeItem, setActiveItem] = useState<string>("Home");
+  const navItems = ["Home", "About", "Resources", "Contact"];
 
   const handleClick = (item: string) => {
     setActiveItem(item);
   };
 
-  const navItems = ["Home", "About", "Mdol", "Contact"];
-
-  const navContainerStyle = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: "1rem 0",
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
-    width: "100%",
-  };
-
-  const navItemsStyle = {
-    display: "flex",
-    justifyContent: "center",
-    gap: "4rem",
-  };
-
   return (
-    <nav style={navContainerStyle}>
-      <div style={navItemsStyle}>
+    <Nav>
+      <NavItems>
         {navItems.map((item) => (
-          <a
+          <NavLink
             key={item}
             href="#"
-            style={{
-              position: "relative",
-              padding: "0.25rem 0.5rem",
-              fontWeight: 500,
-              color: activeItem === item ? "#15803d" : "#000000",
-              textDecoration: "none",
-              transition: "color 0.3s ease",
-            }}
+            active={activeItem === item}
             onClick={(e) => {
               e.preventDefault();
               handleClick(item);
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#15803d";
-            }}
-            onMouseLeave={(e) => {
-              if (activeItem !== item) {
-                e.currentTarget.style.color = "#000000";
-              }
+              navigate(`${item}`);
             }}
           >
             {item}
-            <span
-              style={{
-                content: "",
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                width: activeItem === item ? "100%" : "0",
-                height: "2px",
-                backgroundColor: "#15803d",
-                transition: "width 0.3s ease",
-              }}
-              className="nav-underline"
-            />
-          </a>
+          </NavLink>
         ))}
-      </div>
-    </nav>
+      </NavItems>
+    </Nav>
   );
 };
 
