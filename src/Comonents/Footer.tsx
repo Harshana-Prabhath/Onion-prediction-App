@@ -5,7 +5,11 @@ const FooterStyle = styled.footer`
   background-color: #166534;
   color: white;
   padding: 1.5rem 0;
-  `;
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
+  width: 100%;
+`;
 const FooterContentStyle = styled.div`
   max-width: 64rem;
   margin: 0 auto;
@@ -32,10 +36,7 @@ const FooterLink = styled.a`
   }
 `;
 
-
-
 const Footer: React.FC = () => {
- 
   return (
     <FooterStyle>
       <FooterContentStyle>
