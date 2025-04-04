@@ -1,18 +1,16 @@
 import React from "react";
-import styled from "styled-components";
-import { theme } from "../styles/theme";
 
-const FooterWrapper = styled.div`
-  background: ${theme.color.white};
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  height: 50px;
-  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
-`;
-
-const Footer: React.FC = () => {
-  return <FooterWrapper>This is the footer</FooterWrapper>;
+const Footer = () => {
+  return (
+    <footer className="bg-green-800 text-white py-6 mt-8">
+      <div className="container mx-auto text-center">
+        <p className="text-sm">© 2025 Big Onion Yield Prediction Model. All rights reserved.</p>
+        <div className="flex justify-center space-x-4 mt-4">
+          <a href="#" className="text-white hover:text-green-300">Privacy Policy</a>
+          <a href="#" className="text-white hover:text-green-300">Terms of Service</a>
+          <a href="#" className="text-white hover:text-green-300">Contact Us</a>
+        </div>
+      </div>
+    </footer>
+  );
 };
-
-export default Footer;
