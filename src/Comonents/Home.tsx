@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import PredictionGraph from "./PredictionGraph";
-import BackgroundImage from "../../public/Images/Background.jpg";
+import BackgroundImage from "/Images/Background.jpg";
 
 // Styled Components
 const MainContainer = styled.div`
@@ -14,10 +14,11 @@ const HeroSection = styled.main`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  background-image: "url(${BackgroundImage})";
+  background-image: url(${BackgroundImage});
   background-size: cover;
   background-position: center;
   position: relative;
+  height: 100vh;
 `;
 
 const Overlay = styled.div`
@@ -95,7 +96,7 @@ const Home: React.FC = () => {
           <Description>
             A machine learning model for predicting big onion
             <br />
-            yield based on environmental factors.
+            yield based on climate factors.
           </Description>
           <PredictButton onClick={() => setShowPrediction(true)}>
             PREDICT
