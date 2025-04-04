@@ -5,7 +5,7 @@ const FooterStyle = styled.footer`
   background-color: #166534;
   color: white;
   padding: 1.5rem 0;
-  position: stick;
+  position: fixed;
   bottom: 0;
   z-index: 100;
   width: 100%;
