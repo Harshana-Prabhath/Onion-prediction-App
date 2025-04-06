@@ -16,11 +16,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="/Home" element={<Home />} />
-          <Route path="/prediction-graph" element={<PredictionGraph />} />
-          <Route path="/About" element={<About />} />
-          <Route path="/Resources" element={<Resources />} />
-          <Route path="/Contact" element={<Contact />} />
+          <Route path="/prediction" element={<PredictionGraph />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/resources" element={<Resources />} />
         </Route>
       </Routes>
     </>

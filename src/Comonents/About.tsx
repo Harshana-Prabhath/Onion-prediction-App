@@ -1,5 +1,9 @@
+import styled from "styled-components";
+
+const WrapperContainer = styled.div``;
+
 const About: React.FC = () => {
-  return <h1>This is about</h1>;
+  return <WrapperContainer></WrapperContainer>;
 };
 
 export default About;

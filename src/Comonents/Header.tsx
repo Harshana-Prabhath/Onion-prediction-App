@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 
+interface NavItemsI {
+  value: string;
+  path: string;
+}
+
 // Styled Components
 const Nav = styled.nav`
   display: flex;
@@ -51,7 +56,13 @@ const NavLink = styled.a<{ active: boolean }>`
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const [activeItem, setActiveItem] = useState<string>("Home");
-  const navItems = ["Home", "About", "Resources", "Contact"];
+  const navItems = ["Home", "About", "Resources", "Contact", "Prediction"];
+  const newNavItems: NavItemsI[] = [
+    { value: "Home", path: "/" },
+    { value: "About", path: "/about" },
+    { value: "Resources", path: "/resources" },
+    { value: "Prediction", path: "/prediction" },
+  ];
 
   const handleClick = (item: string) => {
     setActiveItem(item);
@@ -60,18 +71,18 @@ const Header: React.FC = () => {
   return (
     <Nav>
       <NavItems>
-        {navItems.map((item) => (
+        {newNavItems.map((item: NavItemsI) => (
           <NavLink
-            key={item}
+            key={item.value}
             href="#"
-            active={activeItem === item}
+            active={activeItem === item.value}
             onClick={(e) => {
               e.preventDefault();
-              handleClick(item);
-              navigate(`${item}`);
+              handleClick(item.value);
+              navigate(`${item.path}`);
             }}
           >
-            {item}
+            {item.value}
           </NavLink>
         ))}
       </NavItems>
