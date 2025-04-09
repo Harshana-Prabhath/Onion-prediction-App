@@ -9,8 +9,6 @@ import Resources from "./Comonents/Resources";
 import Contact from "./Comonents/Contact";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <Routes>
