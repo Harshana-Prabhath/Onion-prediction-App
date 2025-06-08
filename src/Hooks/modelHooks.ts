@@ -3,7 +3,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 
 interface YieldDataI {
   year: number;
-  actual_yield: number;
+  yield: number;
 }
 
 interface YieldPredictionI {

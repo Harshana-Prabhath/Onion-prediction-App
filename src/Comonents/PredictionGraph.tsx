@@ -12,9 +12,12 @@ import {
 } from "recharts";
 import styled from "styled-components";
 import { Button, Dropdown, MenuProps, Space, Spin } from "antd";
-import { useGetANNData, useGetSVMRData } from "../Hooks/modelHooks";
-import { ModelTypes } from "../enum/modeltypes";
 
+interface YieldDataI {
+  year: number;
+  actualYield?: number;
+  predictedYield?: number;
+}
 const WrapperContainer = styled.div`
   width: 100%;
 `;
@@ -47,64 +50,17 @@ const HeadingContainer = styled.div`
 const MainTitle = styled.h1``;
 const SubTitle = styled.h2``;
 
-const StyledSpace = styled(Space)`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-`;
-const StyledDropdown = styled(Dropdown.Button)`
-  width: 200px;
-  justify-content: center;
-  text-align: center;
-`;
-
-const items: MenuProps["items"] = [
-  {
-    key: "1",
-    label: "ANN",
-  },
-  { key: "2", label: "SVMR" },
-];
-
 const PredictionGraph: React.FC = () => {
-  const [selectedModel, setSelectedModel] = React.useState<ModelTypes>(
-    ModelTypes.ANN
-  );
-
-  let navigate = useNavigate();
-
-  const {
-    data: svrData,
-    isLoading: svmrLoading,
-    refetch: svmrRefetch,
-  } = useGetSVMRData();
-
-  const {
-    data: annData,
-    isLoading: annLoading,
-    refetch: annRefetch,
-  } = useGetANNData();
-
-  const YeildData =
-    selectedModel === ModelTypes.ANN
-      ? (annData?.years ?? [])
-      : (svrData?.years ?? []);
-
-  const handleMenuClick: MenuProps["onClick"] = (e) => {
-    if (e.key === "1") {
-      setSelectedModel(ModelTypes.ANN);
-      annRefetch();
-    } else if (e.key === "2") {
-      setSelectedModel(ModelTypes.SVMR);
-      svmrRefetch();
-    }
-  };
-
-  const menuProps = {
-    items,
-    onClick: handleMenuClick,
-  };
+  const YeildData: YieldDataI[] = [
+    { year: 2018, actualYield: 8.5 },
+    { year: 2019, actualYield: 9.1 },
+    { year: 2020, actualYield: 8.8 },
+    { year: 2021, actualYield: 9.4 },
+    { year: 2022, actualYield: 10.0 },
+    { year: 2023, actualYield: 9.7 },
+    { year: 2024, predictedYield: 10.5 },
+    { year: 2025, predictedYield: 11.0 },
+  ];
 
   return (
     <>
@@ -118,17 +74,8 @@ const PredictionGraph: React.FC = () => {
               : "Loading yield data..."}
           </SubTitle>
         </HeadingContainer>
-        <StyledSpace>
-          <StyledDropdown
-            overlayClassName="custom-dropdown"
-            menu={menuProps}
-            placement="bottom"
-            arrow
-          >
-            Select Model
-          </StyledDropdown>
-        </StyledSpace>
-        <Spin spinning={svmrLoading || annLoading}>
+
+        <Spin spinning={false}>
           <ChartContainer>
             <ChartTitleContainer>
               <ChartTitle>Yeild Comparison Over Years</ChartTitle>
@@ -168,15 +115,17 @@ const PredictionGraph: React.FC = () => {
                 <Legend />
                 <Line
                   type="monotone"
-                  dataKey="actual_yield"
+                  dataKey="actualYield"
                   stroke="#8884d8"
                   activeDot={{ r: 8 }}
+                  connectNulls={true}
                 />
                 <Line
                   type="monotone"
-                  dataKey="predicted_yield"
+                  dataKey="predictedYield"
                   stroke="#82ca9d"
                   activeDot={{ r: 12 }}
+                  connectNulls={true}
                 />
               </LineChart>
             </ResponsiveContainer>
