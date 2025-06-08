@@ -59,8 +59,6 @@ const Header: React.FC = () => {
   const navItems = ["Home", "About", "Resources", "Contact", "Prediction"];
   const newNavItems: NavItemsI[] = [
     { value: "Home", path: "/" },
-    { value: "About", path: "/about" },
-    { value: "Resources", path: "/resources" },
     { value: "Prediction", path: "/prediction" },
   ];
 
