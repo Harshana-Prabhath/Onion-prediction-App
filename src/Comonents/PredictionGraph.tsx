@@ -1,5 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router";
+import React, { useEffect } from "react";
+import { isRouteErrorResponse, useNavigate } from "react-router";
 import {
   CartesianGrid,
   Legend,
@@ -67,7 +67,12 @@ const PredictionGraph: React.FC = () => {
       <WrapperContainer>
         <HeadingContainer>
           <MainTitle>Onion Yeild Prediction</MainTitle>
-          <SubTitle>{`Visualization of acutal and predicted yeilds from ${data[0].year} to ${data[data.length - 1].year}`}</SubTitle>
+          <SubTitle>
+            {" "}
+            {YeildData && YeildData.length > 0
+              ? `Visualization of actual and predicted yields from ${YeildData[0].year} to ${YeildData[YeildData.length - 1].year}`
+              : "Loading yield data..."}
+          </SubTitle>
         </HeadingContainer>
 
         <Spin spinning={false}>
