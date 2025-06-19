@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
-import { isRouteErrorResponse, useNavigate } from "react-router";
+import React from "react";
+
+import { Spin } from "antd";
 import {
   CartesianGrid,
   Legend,
@@ -11,12 +12,13 @@ import {
   YAxis,
 } from "recharts";
 import styled from "styled-components";
-import { Button, Dropdown, MenuProps, Space, Spin } from "antd";
-import { useGetPredictedData } from "../Hooks/modelHooks";
+
 import { YieldPrediction } from "../assets/Interfaces/prediction.interfaces";
+import { useGetPredictedData } from "../Hooks/modelHooks";
 
 const WrapperContainer = styled.div`
   width: 100%;
+  background-color: #fff8e1;
 `;
 
 const ChartContainer = styled.div`
@@ -191,11 +193,34 @@ const PredictionGraph: React.FC = () => {
     },
   };
 
-  const { data: YeildResponse, isLoading, isError } = useGetPredictedData();
+  const { data: YeildResponse, isLoading } = useGetPredictedData();
 
-  const data = YeildResponse?.data;
+  const transformYieldData = (data: YieldPrediction["data"]) => {
+    return data.map((item) => {
+      if (item.year < 2023) {
+        return {
+          ...item,
+          predicted_yield: null,
+        };
+      }
 
-  console.log(data);
+      if (item.year === 2023) {
+        return {
+          ...item,
+          predicted_yield: item.actual_yield,
+        };
+      }
+
+      if (item.year >= 2024) {
+        return {
+          ...item,
+          actual_yield: null,
+        };
+      }
+
+      return item;
+    });
+  };
 
   return (
     <>
@@ -204,8 +229,8 @@ const PredictionGraph: React.FC = () => {
           <MainTitle>Onion Yeild Prediction</MainTitle>
           <SubTitle>
             {" "}
-            {YeildData.data && YeildData.data.length > 0
-              ? `Visualization of actual and predicted yields from ${YeildData.data[0].year} to ${YeildData.data[YeildData.data.length - 1].year}`
+            {YeildResponse?.data && YeildResponse.data.length > 0
+              ? `Visualization of actual and predicted yields from ${YeildResponse.data[0].year} to ${YeildResponse.data[YeildResponse.data.length - 1].year}`
               : "Loading yield data..."}
           </SubTitle>
         </HeadingContainer>
@@ -218,7 +243,7 @@ const PredictionGraph: React.FC = () => {
             <ResponsiveContainer width="90%" height={600}>
               <LineChart
                 title={"Onion Prediction"}
-                data={YeildData.data}
+                data={transformYieldData(YeildResponse?.data || [])}
                 margin={{
                   top: 5,
                   right: 30,

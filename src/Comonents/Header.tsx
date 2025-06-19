@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 
@@ -56,10 +57,11 @@ const NavLink = styled.a<{ active: boolean }>`
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const [activeItem, setActiveItem] = useState<string>("Home");
-  const navItems = ["Home", "About", "Resources", "Contact", "Prediction"];
   const newNavItems: NavItemsI[] = [
     { value: "Home", path: "/" },
     { value: "Prediction", path: "/prediction" },
+    { value: "About Us", path: "/about" },
+    { value: "Resource", path: "/resources" },
   ];
 
   const handleClick = (item: string) => {

@@ -1,12 +1,12 @@
-import { useState } from "react";
 import "./App.css";
+
 import { Route, Routes } from "react-router";
-import Layout from "./Layout";
+
+import About from "./Comonents/About";
 import Home from "./Comonents/Home";
 import PredictionGraph from "./Comonents/PredictionGraph";
-import About from "./Comonents/About";
 import Resources from "./Comonents/Resources";
-import Contact from "./Comonents/Contact";
+import Layout from "./Layout";
 
 function App() {
   return (
