@@ -1,8 +1,10 @@
 import React from "react";
+
 import { Outlet } from "react-router";
-import Header from "./Comonents/Header";
-import Footer from "./Comonents/Footer";
 import styled from "styled-components";
+
+import Footer from "./Comonents/Footer";
+import Header from "./Comonents/Header";
 
 const LayoutContainer = styled.div`
   display: flex;
@@ -11,7 +13,7 @@ const LayoutContainer = styled.div`
 `;
 const ContentWrapper = styled.main`
   flex: 1;
-  background: #f9fafb;
+  background-color: #fff8e1;
 `;
 
 const Layout: React.FC = () => {
